@@ -1,0 +1,114 @@
+using System.Diagnostics;
+namespace Master_Mind
+{
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            try {
+                Console.WriteLine("Choose Level of The Game :( Easy, Medium, Hard)");
+                Console.WriteLine(" Easy :   1000 ~ 10000");
+                Console.WriteLine(" Medium : 10000 ~ 100000");
+                Console.WriteLine(" Hard :   100000 ~ 1000000");
+                string type;
+                do
+                {
+                    type = Console.ReadLine().ToLower();
+                    if (type != "easy" && type != "medium" && type != "hard")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(" Please Enter The Correct Name !!!!!");
+                        Console.ResetColor();
+                        Console.WriteLine("Choose Level of The Game : Easy Medium Hard");
+                    }
+                } while (type != "easy" && type != "medium" && type != "hard");
+                Random random = new Random();
+                int maximunnumber = 0;
+                int minimumnumber = 0;
+                switch (type)
+                {
+                    case "easy":
+                        minimumnumber = 1000;
+                        maximunnumber = 9999;
+                        break;
+                    case "medium":
+                        minimumnumber = 10000;
+                        maximunnumber = 99999;
+                        break;
+                    case "hard":
+                        minimumnumber = 100000;
+                        maximunnumber = 999999;
+                        break;
+                }
+                string computerguess = Convert.ToString(random.Next(minimumnumber, maximunnumber + 1));
+                for (int i = 0; i < 6; i++)
+                {
+                    Console.WriteLine($"Please Guess a Number (Round {i + 1}):");
+                    int user = int.Parse(Console.ReadLine());
+                    string? userguess = Convert.ToString(user);
+
+                    if (userguess.Length != computerguess.Length)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("Please Enter the Correct Range of number !!!");
+                        userguess = Console.ReadLine();
+                        Console.ResetColor();
+                    }
+                    numberchecker(userguess: userguess, computerguess: computerguess);
+                    if (userguess == computerguess)
+                    {
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("You Win ");
+                        Console.Write(userguess);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Your Guess was Wrong !!!");
+                    }
+                    if (i == 9)
+                    {
+                        Console.WriteLine("You Lost !!!");
+                        break;
+                    }
+                }
+            }catch(FormatException)
+                {
+                    Console.ForegroundColor= ConsoleColor.Cyan;
+                    Console.WriteLine("Please Enter the Correct Format !!!");
+                    Console.ResetColor();
+                }
+}
+        
+        static void numberchecker(string userguess, string computerguess)
+        {
+            for (int i = 0; i < userguess.Length; i++)
+            {
+                if (userguess[i] == computerguess[i])
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(userguess[i]);
+                }
+                else if (computerguess.Contains(userguess[i]))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(userguess[i]);
+
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(userguess[i]);
+                }
+                Console.ResetColor();
+            }
+        }
+    }
+}
+
+
+
+
