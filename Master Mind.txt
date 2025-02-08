@@ -6,12 +6,14 @@ namespace Master_Mind
 
         static void Main(string[] args)
         {
-            try {
+            try
+            {
                 Console.WriteLine("Choose Level of The Game :( Easy, Medium, Hard)");
                 Console.WriteLine(" Easy :   1000 ~ 10000");
                 Console.WriteLine(" Medium : 10000 ~ 100000");
                 Console.WriteLine(" Hard :   100000 ~ 1000000");
                 string type;
+                
                 do
                 {
                     type = Console.ReadLine().ToLower();
@@ -23,6 +25,8 @@ namespace Master_Mind
                         Console.WriteLine("Choose Level of The Game : Easy Medium Hard");
                     }
                 } while (type != "easy" && type != "medium" && type != "hard");
+                Console.WriteLine("Please enter the number of rounds");
+                int round = int.Parse(Console.ReadLine());
                 Random random = new Random();
                 int maximunnumber = 0;
                 int minimumnumber = 0;
@@ -42,7 +46,7 @@ namespace Master_Mind
                         break;
                 }
                 string computerguess = Convert.ToString(random.Next(minimumnumber, maximunnumber + 1));
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < round; i++)
                 {
                     Console.WriteLine($"Please Guess a Number (Round {i + 1}):");
                     int user = int.Parse(Console.ReadLine());
@@ -69,20 +73,22 @@ namespace Master_Mind
                         Console.WriteLine();
                         Console.WriteLine("Your Guess was Wrong !!!");
                     }
-                    if (i == 9)
+                    if (i == round-1)
                     {
                         Console.WriteLine("You Lost !!!");
+                        Console.WriteLine($"The Computer Guess is : {computerguess}");
                         break;
                     }
                 }
-            }catch(FormatException)
-                {
-                    Console.ForegroundColor= ConsoleColor.Cyan;
-                    Console.WriteLine("Please Enter the Correct Format !!!");
-                    Console.ResetColor();
-                }
-}
-        
+            }
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Please Enter the Correct Format !!!");
+                Console.ResetColor();
+            }
+        }
+
         static void numberchecker(string userguess, string computerguess)
         {
             for (int i = 0; i < userguess.Length; i++)
@@ -108,7 +114,3 @@ namespace Master_Mind
         }
     }
 }
-
-
-
-
